@@ -1,0 +1,11 @@
+server:
+  port: 7878
+spring:
+  datasource:
+    username: threesmart
+    password: threesmart
+    url: jdbc:postgresql://localhost:5433/employee_management
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      hibernate:
+        ddl-auto: validate
