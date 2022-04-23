@@ -21,7 +21,6 @@ public class EmployeeService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
     private final JWTService jwtService;
 
     public EmployeeService(final UserRepository userRepository,
@@ -52,14 +51,15 @@ public class EmployeeService {
 
     public UserRegisterResponseDetails register(final UserRegisterRequestDetails request) {
         final UserEntity userEntity = UserMapper.instance.registerRequestToEntity(request);
-        userEntity.setPassword("asd");
+        userEntity.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
         userEntity.setRole_id(1);
-        userEntity.setMapping_id(null);
         userEntity.setWorking_status(true);
         userEntity.setStatus(true);
-        userEntity.setParent_id(123L);
-        final UserEntity save = userRepository.save(userEntity);
-        return null;
+        userEntity.setParent_id(1L);
+        final UserEntity saved = userRepository.save(userEntity);
+        final UserRegisterResponseDetails response = new UserRegisterResponseDetails();
+        response.setUsername(saved.getUsername());
+        return response;
     }
 
     public UserLoginResponseDetails loginAdmin(final UserLoginRequestDetails request) {

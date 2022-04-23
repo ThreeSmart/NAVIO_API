@@ -24,7 +24,7 @@ public class RegisterController {
     @PostMapping("/user")
     public ResponseEntity<?> register(@RequestBody final UserRegisterRequestDetails request) {
         final UserRegisterResponseDetails response = employeeService.register(request);
-        return ResponseEntity.ok("saved user");
+        return ResponseEntity.ok("saved user " + response.getUsername());
     }
 
 }

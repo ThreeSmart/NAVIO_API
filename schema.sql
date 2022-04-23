@@ -19,7 +19,6 @@ create table if not exists roles
 create table if not exists users
 (
     id             bigserial primary key,
-    mapping_id     bigserial unique,
     name           text    not null,
     surname        text    not null,
     username       text    not null unique,
@@ -33,7 +32,7 @@ create table if not exists users
     parent_id      bigserial,
     foreign key (department_id) references departments (id),
     foreign key (role_id) references roles (id),
-    foreign key (parent_id) references users (mapping_id)
+    foreign key (parent_id) references users (id)
 );
 
 create table if not exists coordinates
