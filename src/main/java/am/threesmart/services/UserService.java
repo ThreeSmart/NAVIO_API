@@ -3,29 +3,24 @@ package am.threesmart.services;
 import am.threesmart.exceptions.UserNotFountException;
 import am.threesmart.jwt.JWTService;
 import am.threesmart.mappers.UserMapper;
-import am.threesmart.models.dto.UserLoginRequestDetails;
-import am.threesmart.models.dto.UserLoginResponseDetails;
-import am.threesmart.models.dto.UserRegisterRequestDetails;
-import am.threesmart.models.dto.UserRegisterResponseDetails;
+import am.threesmart.models.dto.*;
 import am.threesmart.models.entity.UserEntity;
 import am.threesmart.repositories.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
-public class EmployeeService {
+public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
 
-    public EmployeeService(final UserRepository userRepository,
-                           final PasswordEncoder passwordEncoder,
-                           final JWTService jwtService) {
+    public UserService(final UserRepository userRepository,
+                       final PasswordEncoder passwordEncoder,
+                       final JWTService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
@@ -90,4 +85,13 @@ public class EmployeeService {
         return response;
     }
 
+    public List<User> getAllUsers() {
+        final Iterable<UserEntity> all = userRepository.findAll();
+        final ArrayList<User> result = new ArrayList<>();
+        all.forEach(e -> {
+            User user = UserMapper.instance.entityToDto(e);
+            result.add(user);
+        });
+        return result;
+    }
 }

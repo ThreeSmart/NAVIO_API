@@ -2,7 +2,7 @@ package am.threesmart.controllers;
 
 import am.threesmart.models.dto.UserLoginRequestDetails;
 import am.threesmart.models.dto.UserLoginResponseDetails;
-import am.threesmart.services.EmployeeService;
+import am.threesmart.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 @PreAuthorize("permitAll()")
 public class LoginController {
 
-    private final EmployeeService employeeService;
+    private final UserService userService;
 
-    public LoginController(final EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public LoginController(final UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("/user")
     public ResponseEntity<?> login(@RequestBody UserLoginRequestDetails request) {
-        final UserLoginResponseDetails response = employeeService.login(request);
+        final UserLoginResponseDetails response = userService.login(request);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/admin")
     public ResponseEntity<?> loginAdmin(@RequestBody UserLoginRequestDetails request) {
-        final UserLoginResponseDetails response = employeeService.loginAdmin(request);
+        final UserLoginResponseDetails response = userService.loginAdmin(request);
         return ResponseEntity.ok(response);
     }
 

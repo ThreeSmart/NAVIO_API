@@ -1,5 +1,6 @@
 package am.threesmart.mappers;
 
+import am.threesmart.models.dto.User;
 import am.threesmart.models.dto.UserRegisterRequestDetails;
 import am.threesmart.models.entity.UserEntity;
 import org.mapstruct.Mapper;
@@ -12,4 +13,5 @@ public interface UserMapper {
 
     UserEntity registerRequestToEntity(UserRegisterRequestDetails userRegisterRequestDetails);
 
+    User entityToDto(UserEntity e);
 }
