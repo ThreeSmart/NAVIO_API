@@ -1,7 +1,7 @@
 package am.threesmart.mappers;
 
-import am.threesmart.models.dto.EmployeeRegisterRequestDetails;
-import am.threesmart.models.entity.EmployeeEntity;
+import am.threesmart.models.dto.UserRegisterRequestDetails;
+import am.threesmart.models.entity.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -10,6 +10,6 @@ public interface UserMapper {
 
     UserMapper instance = Mappers.getMapper(UserMapper.class);
 
-    EmployeeEntity registerRequestToEntity(EmployeeRegisterRequestDetails employeeRegisterRequestDetails);
+    UserEntity registerRequestToEntity(UserRegisterRequestDetails userRegisterRequestDetails);
 
 }

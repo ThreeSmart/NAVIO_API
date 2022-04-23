@@ -1,5 +1,7 @@
 server:
   port: 7801
+  error:
+    include-message: always
 spring:
   datasource:
     username: threesmart
@@ -9,3 +11,6 @@ spring:
     jpa:
       hibernate:
         ddl-auto: validate
+  web:
+    resources:
+      add-mappings: true

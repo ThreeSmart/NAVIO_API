@@ -1,8 +1,7 @@
 package am.threesmart.controllers;
 
-import am.threesmart.models.dto.EmployeeRegisterRequestDetails;
-import am.threesmart.models.dto.EmployeeRegisterResponseDetails;
-import am.threesmart.models.entity.EmployeeEntity;
+import am.threesmart.models.dto.UserRegisterRequestDetails;
+import am.threesmart.models.dto.UserRegisterResponseDetails;
 import am.threesmart.services.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,8 +22,8 @@ public class RegisterController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<?> register(@RequestBody final EmployeeEntity request) {
-        final EmployeeRegisterResponseDetails response = employeeService.register(request);
+    public ResponseEntity<?> register(@RequestBody final UserRegisterRequestDetails request) {
+        final UserRegisterResponseDetails response = employeeService.register(request);
         return ResponseEntity.ok("saved user");
     }
 
