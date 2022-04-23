@@ -30,9 +30,7 @@ create table if not exists users
     working_status boolean not null,
     status         boolean not null,
     parent_id      bigserial,
-    foreign key (department_id) references departments (id),
-    foreign key (role_id) references roles (id),
-    foreign key (parent_id) references users (id)
+    foreign key (role_id) references roles (id)
 );
 
 create table if not exists coordinates

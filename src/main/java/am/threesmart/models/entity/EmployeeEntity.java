@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Employee {
+public class EmployeeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,10 @@ public class Employee {
     private String password;
     private String email;
     private String image_url;
-    private String department_id;
-    private String role_id;
+    private Long department_id;
+    private Integer role_id;
     private Boolean working_status;
     private Boolean status;
+    private Long parent_id;
 
 }

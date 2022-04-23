@@ -5,7 +5,7 @@ import am.threesmart.models.dto.EmployeeLoginRequestDetails;
 import am.threesmart.models.dto.EmployeeLoginResponseDetails;
 import am.threesmart.models.dto.EmployeeRegisterRequestDetails;
 import am.threesmart.models.dto.EmployeeRegisterResponseDetails;
-import am.threesmart.models.entity.Employee;
+import am.threesmart.models.entity.EmployeeEntity;
 import am.threesmart.repositories.EmployeeRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,15 +25,15 @@ public class EmployeeService {
     }
 
     public EmployeeLoginResponseDetails login(final EmployeeLoginRequestDetails request) {
-        final Optional<Employee> userOptional = employeeRepository.findByUsername(request.getUsername());
+        final Optional<EmployeeEntity> userOptional = employeeRepository.findByUsername(request.getUsername());
 
         if(userOptional.isEmpty()) {
             throw new UserNotFountException();
         }
 
-        final Employee employee = userOptional.get();
+        final EmployeeEntity employeeEntity = userOptional.get();
 
-        if(!passwordEncoder.matches(request.getPassword(), employee.getPassword())) {
+        if(!passwordEncoder.matches(request.getPassword(), employeeEntity.getPassword())) {
             throw new UserNotFountException();
         }
 
@@ -42,8 +42,13 @@ public class EmployeeService {
         return response;
     }
 
-    public EmployeeRegisterResponseDetails register(final EmployeeRegisterRequestDetails request) {
-        // map dto to entity and save
+    public EmployeeRegisterResponseDetails register(final EmployeeEntity request) {
+        request.setPassword("asd");
+        request.setRole_id(1);
+        request.setWorking_status(true);
+        request.setStatus(true);
+        request.setParent_id(123L);
+        final EmployeeEntity save = employeeRepository.save(request);
         return null;
     }
 }

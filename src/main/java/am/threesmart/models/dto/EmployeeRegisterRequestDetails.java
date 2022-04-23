@@ -12,12 +12,7 @@ public class EmployeeRegisterRequestDetails {
     private String name;
     private String surname;
     private String username;
-    private String password;
     private String email;
-    private String image_url;
-    private String department_id;
-    private String role_id;
-    private Boolean working_status;
-    private Boolean status;
+    private Long department_id;
 
 }
