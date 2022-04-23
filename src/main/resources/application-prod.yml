@@ -6,7 +6,7 @@ spring:
   datasource:
     username: threesmart
     password: threesmart
-    url: jdbc:postgresql://host.docker.internal:5433/threesmart
+    url: jdbc:postgresql://172.17.0.1:5433/threesmart
     driver-class-name: org.postgresql.Driver
     jpa:
       hibernate:
