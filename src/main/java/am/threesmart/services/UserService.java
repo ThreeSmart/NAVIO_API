@@ -46,7 +46,7 @@ public class UserService {
 
     public UserRegisterResponseDetails register(final UserRegisterRequestDetails request) {
         final UserEntity userEntity = UserMapper.instance.registerRequestToEntity(request);
-        userEntity.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
+        userEntity.setPassword(passwordEncoder.encode("user"));
         userEntity.setRole_id(1);
         userEntity.setWorking_status(true);
         userEntity.setStatus(true);
