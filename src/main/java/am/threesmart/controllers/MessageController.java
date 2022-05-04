@@ -1,13 +1,12 @@
 package am.threesmart.controllers;
 
-import am.threesmart.models.dto.SentMessage;
+import am.threesmart.models.dto.Message;
 import am.threesmart.services.MessagesService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/messages")
@@ -21,9 +20,15 @@ public class MessageController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<?> send(@RequestBody SentMessage sentMessage) {
-        final SentMessage sent = messagesService.pushMessage(sentMessage);
+    public ResponseEntity<?> send(@RequestBody Message message) {
+        final Message sent = messagesService.pushMessage(message);
         return ResponseEntity.ok("sent message with id: " + sent.getId());
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAll(@RequestParam String fromUserId, @RequestParam String toUserId) {
+        final List<Message> messages = messagesService.getAllMessages(Long.parseLong(fromUserId), Long.parseLong(toUserId));
+        return ResponseEntity.ok(messages);
     }
 
 }

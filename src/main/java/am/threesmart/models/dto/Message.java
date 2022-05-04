@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SentMessage {
+public class Message {
     private Long id;
     private Long fromUserId;
     private Long toUserId;

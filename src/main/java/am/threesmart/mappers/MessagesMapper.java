@@ -1,6 +1,6 @@
 package am.threesmart.mappers;
 
-import am.threesmart.models.dto.SentMessage;
+import am.threesmart.models.dto.Message;
 import am.threesmart.models.entity.MessagesEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -10,8 +10,8 @@ public interface MessagesMapper {
 
     MessagesMapper instance = Mappers.getMapper(MessagesMapper.class);
 
-    MessagesEntity dtoToEntity(SentMessage message);
+    MessagesEntity dtoToEntity(Message message);
 
-    SentMessage entityToDto(MessagesEntity message);
+    Message entityToDto(MessagesEntity message);
 
 }
