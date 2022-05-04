@@ -1,9 +1,9 @@
 set +e
 
-git pull origin master
+sudo git pull origin master
 
-docker stop threesmart-backend
-docker rm threesmart-backend
-docker rmi navio_api_backend
+sudo docker stop threesmart-backend
+sudo docker rm threesmart-backend
+sudo docker rmi navio_api_backend
 
-docker-compose up -d
+sudo docker-compose up -d
