@@ -40,7 +40,8 @@ public class UserService {
         }
 
         final UserLoginResponseDetails response = new UserLoginResponseDetails();
-        response.setJwt(UUID.randomUUID().toString());
+        final String jwt = jwtService.generate(userEntity);
+        response.setJwt(jwt);
         return response;
     }
 
