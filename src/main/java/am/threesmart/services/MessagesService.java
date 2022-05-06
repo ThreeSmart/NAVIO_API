@@ -6,8 +6,7 @@ import am.threesmart.models.entity.MessagesEntity;
 import am.threesmart.repositories.MessagesRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class MessagesService {
@@ -37,6 +36,15 @@ public class MessagesService {
         for (final MessagesEntity messagesEntity : toFrom) {
             result.add(MessagesMapper.instance.entityToDto(messagesEntity));
         }
+
+        final Comparator<Message> comparator = (left, right) -> {
+            long diff = left.getId() - right.getId();
+            if (diff == 0) return 0;
+            if (diff > 0) return 1;
+            return -1;
+        };
+
+        result.sort(comparator);
 
         return result;
     }
