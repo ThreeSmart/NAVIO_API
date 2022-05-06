@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -25,6 +26,12 @@ public class UserController {
     public ResponseEntity<?> getAllUsers() {
         final List<User> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getUserById(@RequestParam final String userId) {
+        final User user = userService.getUserById(Long.parseLong(userId));
+        return ResponseEntity.ok(user);
     }
 
 }

@@ -94,4 +94,10 @@ public class UserService {
         });
         return result;
     }
+
+    public User getUserById(final Long userId) {
+        final Optional<UserEntity> byId = userRepository.findById(userId);
+        return byId.map(UserMapper.instance::entityToDto).orElse(null);
+    }
+
 }
