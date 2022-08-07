@@ -2,7 +2,9 @@
 
 set -e
 
-docker-compose up -d
+sudo git pull origin master
+
+sudo docker-compose up -d
 
 until PGPASSWORD=threesmart psql -U threesmart -p 5433 -h localhost -d threesmart --no-password -c '\q'; do
   echo "Postgres is unavailable - sleeping"
@@ -10,4 +12,4 @@ until PGPASSWORD=threesmart psql -U threesmart -p 5433 -h localhost -d threesmar
 done
 
 echo "Postgres is up - starting backend"
-docker start threesmart-backend
+sudo docker start threesmart-backend
