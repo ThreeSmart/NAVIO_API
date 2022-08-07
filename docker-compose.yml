@@ -1,13 +1,18 @@
 version: "3"
 services:
-  fpm:
-    build:
-      context: .
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+  backend:
+    depends_on:
+      - db
+    build: .
+    container_name: threesmart-backend
+    ports:
+      - "7801:7801"
   db:
     image: postgres
     container_name: threesmart-db
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d/
     environment:
       POSTGRES_USER: threesmart
       POSTGRES_DB: threesmart
@@ -16,8 +21,3 @@ services:
       - 5433
     ports:
       - "5433:5432"
-  backend:
-    build: .
-    container_name: threesmart-backend
-    ports:
-      - "7801:7801"
