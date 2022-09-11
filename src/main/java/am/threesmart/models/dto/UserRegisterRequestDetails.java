@@ -1,5 +1,6 @@
 package am.threesmart.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ public class UserRegisterRequestDetails {
     private String surname;
     private String username;
     private String email;
-    private Long department_id;
+    @JsonProperty("department_id")
+    private Long departmentId;
 
 }

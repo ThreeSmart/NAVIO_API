@@ -18,9 +18,16 @@ public class EmailController {
         this.emailService = emailService;
     }
 
-    @PostMapping
+    @PostMapping("/by_type")
     public ResponseEntity<?> sendEmail(@RequestBody final SendEmail sendEmail) {
-        return ResponseEntity.ok("will_send");
+        emailService.send(sendEmail);
+        return ResponseEntity.ok(
+                String.format(
+                        "The email to: %s was sent with type: %s",
+                        sendEmail.getEmail(),
+                        sendEmail.getEmailType()
+                )
+        );
     }
 
 }

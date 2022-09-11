@@ -7,16 +7,16 @@ spring:
     username: threesmart
     password: threesmart
     #    url: jdbc:postgresql://172.17.0.1:5433/threesmart
-    url: jdbc:postgresql://localhost:5435/threesmart
+    url: jdbc:postgresql://threesmart-db:5432/threesmart
     driver-class-name: org.postgresql.Driver
     jpa:
       hibernate:
         ddl-auto: validate
   mail:
-    host: mail.threesmart.am
-    port: 465
-    username: noreply@threesmart.am
-    password: ThreeSmartNoReplyMardakerner
+    host: smtp.gmail.com
+    port: 587
+    username: rafayel.shahnazaryan@gmail.com
+    password: wwtglftmfcgzlhan
     properties:
       mail:
         transport:
@@ -24,9 +24,8 @@ spring:
         debug: false
         smtp:
           ssl:
-            trust: mail.threesmart.am
+            trust: smtp.gmail.com
             protocols: TLSv1.2
-            enable: true
           auth: true
           starttls:
             enable: true

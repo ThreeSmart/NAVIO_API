@@ -1,6 +1,7 @@
 version: "3"
 services:
   backend:
+#    docker compose health check
     depends_on:
       - db
     build: .

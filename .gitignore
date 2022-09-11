@@ -3,3 +3,4 @@ target
 *.iml
 /db-data/
 /postgres-data/
+/start_local_db.sh

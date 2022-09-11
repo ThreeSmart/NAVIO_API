@@ -57,6 +57,15 @@ create table if not exists messages
     foreign key (to_user_id) references users (id)
 );
 
+create table if not exists tokens
+(
+    id           bigserial primary key,
+    value        text   not null unique,
+    expired      boolean default false,
+    user_id      bigint not null,
+    foreign key (user_id) references users (id)
+);
+
 insert into roles(type)
 values ('EMPLOYEE');
 insert into roles(type)
