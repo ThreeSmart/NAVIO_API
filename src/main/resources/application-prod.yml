@@ -13,10 +13,10 @@ spring:
       hibernate:
         ddl-auto: validate
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: rafayel.shahnazaryan@gmail.com
-    password: wwtglftmfcgzlhan
+    host: mail.threesmart.am
+    port: 465
+    username: noreply@threesmart.am
+    password: ThreeSmartNoReplyMardakerner
     properties:
       mail:
         transport:
@@ -24,8 +24,9 @@ spring:
         debug: false
         smtp:
           ssl:
-            trust: smtp.gmail.com
+            trust: mail.threesmart.am
             protocols: TLSv1.2
+            enable: true
           auth: true
           starttls:
             enable: true
