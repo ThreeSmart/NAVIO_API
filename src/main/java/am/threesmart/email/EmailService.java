@@ -65,6 +65,7 @@ public class EmailService {
             message.setSubject(EmailHtmlContents.getSubjectByType(emailType));
             message.setFrom(SENDER_EMAIL_ADDRESS);
 
+            javaMailSender.send(message);
             System.out.printf("The email to: %s was sent with type: %s\n", to, emailType);
         } catch (final MessagingException e) {
             throw new RuntimeException(e);
