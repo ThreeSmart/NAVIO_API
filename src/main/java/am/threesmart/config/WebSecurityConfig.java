@@ -22,7 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .disable()
-                .cors().configurationSource(corsConfigurationSource());
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
+                .addFilterBefore(new JWTFilter(), BasicAuthenticationFilter.class);
     }
 
     @Bean

@@ -1,7 +1,7 @@
 package am.threesmart.services;
 
 import am.threesmart.exceptions.InvalidTokenException;
-import am.threesmart.exceptions.UserNotFountException;
+import am.threesmart.exceptions.UserNotFoundException;
 import am.threesmart.jwt.JWTService;
 import am.threesmart.mappers.UserMapper;
 import am.threesmart.models.dto.*;
@@ -35,13 +35,13 @@ public class UserService {
         final Optional<UserEntity> userOptional = userRepository.findByUsername(request.getUsername());
 
         if (userOptional.isEmpty()) {
-            throw new UserNotFountException();
+            throw new UserNotFoundException();
         }
 
         final UserEntity userEntity = userOptional.get();
 
         if (!passwordEncoder.matches(request.getPassword(), userEntity.getPassword())) {
-            throw new UserNotFountException();
+            throw new UserNotFoundException();
         }
 
         final UserLoginResponseDetails response = new UserLoginResponseDetails();
@@ -69,7 +69,7 @@ public class UserService {
 
         if (userOptional.isEmpty()) {
             System.out.println("No Admin found with username: " + request.getUsername());
-            throw new UserNotFountException();
+            throw new UserNotFoundException();
         }
 
         final UserEntity userEntity = userOptional.get();
@@ -77,12 +77,12 @@ public class UserService {
         if (Objects.equals(userEntity.getPassword(), "admin")) {
             if (!Objects.equals(request.getPassword(), "admin")) {
                 System.out.println("Error to login Admin: password missmatch");
-                throw new UserNotFountException();
+                throw new UserNotFoundException();
             }
             System.out.print("Admin without changing password logged in, ");
         } else if (!passwordEncoder.matches(request.getPassword(), userEntity.getPassword())) {
             System.out.println("Error to login Admin: password missmatch");
-            throw new UserNotFountException();
+            throw new UserNotFoundException();
         }
 
         final UserLoginResponseDetails response = new UserLoginResponseDetails();
@@ -128,7 +128,7 @@ public class UserService {
 
         if (userOptional.isEmpty()) {
             System.out.printf("User with %s id does not exists for token %s\n", token.getUserId(), token.getValue());
-            throw new UserNotFountException();
+            throw new UserNotFoundException();
         }
 
         final UserEntity user = userOptional.get();

@@ -2,7 +2,7 @@ package am.threesmart.email;
 
 import am.threesmart.enums.EmailType;
 import am.threesmart.exceptions.NoSuchEmailTypeException;
-import am.threesmart.exceptions.UserNotFountException;
+import am.threesmart.exceptions.UserNotFoundException;
 import am.threesmart.models.dto.SendEmail;
 import am.threesmart.models.dto.User;
 import am.threesmart.services.TokenService;
@@ -35,7 +35,7 @@ public class EmailService {
         switch (sendEmail.getEmailType()) {
             case RESET_PASSWORD: {
                 final User userByEmail = userService.getUserByEmail(sendEmail.getEmail());
-                if (userByEmail == null) throw new UserNotFountException();
+                if (userByEmail == null) throw new UserNotFoundException();
 
                 final OverrideRules overrideRules = new OverrideRules();
                 overrideRules
