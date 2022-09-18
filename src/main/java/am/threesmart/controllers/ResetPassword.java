@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/reset")
 public class ResetPassword {
@@ -21,7 +23,7 @@ public class ResetPassword {
     @PostMapping("/password")
     public ResponseEntity<?> resetPassword(@RequestBody final ResetPasswordCredentials resetPasswordCredentials) {
         userService.resetPassword(resetPasswordCredentials);
-        return ResponseEntity.ok("password_reset");
+        return ResponseEntity.ok(Map.of("response", "Now you can login with your new password!"));
     }
 
 }
