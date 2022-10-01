@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,8 +44,26 @@ public class TaskService {
                 taskRepository.findByStatusAndAssigneeId(
                         status,
                         currentUser.get().getId(),
-                        PageRequest.of(page, size, Sort.by("status"))
+                        PageRequest.of(page, size)
                 );
+
+
+        byStatus.sort((o1, o2) -> {
+            if (o1.getPriority().toString().equals(o2.getPriority().toString())) {
+                return 0;
+            }
+            if ("HIGH".equals(o1.getPriority().toString())) {
+                return -1;
+            } else if ("MEDIUM".equals(o1.getPriority().toString())) {
+                if ("HIGH".equals(o2.getPriority().toString())) {
+                    return 1;
+                }
+            } else if ("LOW".equals(o1.getPriority().toString())) {
+                return 1;
+            }
+            return 0;
+        });
+
 
         final List<Task> result = new ArrayList<>();
         byStatus.forEach(e -> result.add(TaskMapper.instance.entityToDto(e)));
