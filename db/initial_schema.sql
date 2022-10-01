@@ -3,6 +3,7 @@ drop table if exists messages;
 drop table if exists users;
 drop table if exists roles;
 drop table if exists departments;
+drop table if exists tasks;
 
 create table if not exists departments
 (
@@ -64,6 +65,22 @@ create table if not exists tokens
     expired      boolean default false,
     user_id      bigint not null,
     foreign key (user_id) references users (id)
+);
+
+create table if not exists tasks
+(
+    id          bigserial primary key,
+    name        text not null,
+    owner_id    bigint not null,
+    assignee_id bigint not null,
+    start_date  bigint not null,
+    end_date    bigint not null,
+    status      text not null,
+    priority    text not null,
+    foreign key (owner_id) references users (id),
+    foreign key (assignee_id) references users (id),
+    CHECK (status in ('PENDING','COMPLETE')),
+    CHECK (priority in ('LOW','MEDIUM', 'HIGH'))
 );
 
 insert into roles(type)
