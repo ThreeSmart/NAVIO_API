@@ -5,6 +5,7 @@ import am.threesmart.models.dto.AuthenticatedUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.*;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 
 public class JWTFilter implements Filter {
 
@@ -47,7 +49,7 @@ public class JWTFilter implements Filter {
         final Long departmentId = Long.valueOf(body.get("department_id").toString());
 
         final AuthenticatedUser authenticatedUser = new AuthenticatedUser();
-        authenticatedUser.setId(id);
+        authenticatedUser.setId(Long.parseLong(id));
         authenticatedUser.setUsername(username);
         authenticatedUser.setName(name);
         authenticatedUser.setSurname(surname);
@@ -56,7 +58,7 @@ public class JWTFilter implements Filter {
 
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken(
-                        id, authenticatedUser
+                        id, authenticatedUser, Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))
                 )
         );
 

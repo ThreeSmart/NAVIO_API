@@ -24,6 +24,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .cors().configurationSource(corsConfigurationSource())
                 .and()
+                .authorizeRequests()
+                .anyRequest()
+                .permitAll()
+                .and()
                 .addFilterBefore(new JWTFilter(), BasicAuthenticationFilter.class);
     }
 

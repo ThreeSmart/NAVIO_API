@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class AuthenticatedUser {
-    private String id;
+    private Long id;
     private String username;
     private String name;
     private String surname;
