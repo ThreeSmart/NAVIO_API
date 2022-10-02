@@ -15,8 +15,8 @@ public class Task {
     private String name;
     private Long ownerId;
     private Long assigneeId;
-    private Long startDate;
-    private Long endDate;
+    private String startDate;
+    private String endDate;
     private TaskStatus status;
     private TaskPriority priority;
 
