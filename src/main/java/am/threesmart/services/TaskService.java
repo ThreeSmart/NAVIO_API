@@ -58,6 +58,9 @@ public class TaskService {
                 if ("HIGH".equals(o2.getPriority().toString())) {
                     return 1;
                 }
+                if ("LOW".equals(o2.getPriority().toString())) {
+                    return -1;
+                }
             } else if ("LOW".equals(o1.getPriority().toString())) {
                 return 1;
             }
