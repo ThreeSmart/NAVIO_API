@@ -35,4 +35,10 @@ public class TaskController {
         return ResponseEntity.ok("saved task");
     }
 
+    @GetMapping("/complete")
+    public ResponseEntity<?> completeTask(@RequestParam final Long id) {
+        final Task task = taskService.complete(id);
+        return ResponseEntity.ok("task complete: " + task.getName());
+    }
+
 }
