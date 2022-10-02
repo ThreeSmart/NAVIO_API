@@ -11,10 +11,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Service
 public class TaskService {
@@ -66,16 +67,38 @@ public class TaskService {
 
 
         final List<Task> result = new ArrayList<>();
-        byStatus.forEach(e -> result.add(TaskMapper.instance.entityToDto(e)));
+        byStatus.forEach(e -> {
+            final Task task = TaskMapper.instance.entityToDto(e);
+
+            task.setStartDate(getDateFromMilliseconds(e.getStartDate()));
+
+            if (e.getEndDate() == 0) {
+                task.setEndDate("xx/xx/xxxx");
+            } else {
+                task.setEndDate(getDateFromMilliseconds(e.getEndDate()));
+            }
+
+            result.add(task);
+        });
 
         return result;
     }
 
     public void createTask(final Task task) {
-        task.setStartDate(System.currentTimeMillis());
-        task.setEndDate(0L);
-        task.setStatus(TaskStatus.PENDING);
-        taskRepository.save(TaskMapper.instance.dtoToEntity(task));
+        final TaskEntity taskEntity = TaskMapper.instance.dtoToEntity(task);
+        taskEntity.setStartDate(System.currentTimeMillis());
+        taskEntity.setEndDate(0L);
+        taskEntity.setStatus(TaskStatus.PENDING);
+        taskRepository.save(taskEntity);
+    }
+
+    private String getDateFromMilliseconds(final Long milliseconds) {
+        final Date date = new Date(milliseconds);
+        final LocalDate startLocalDate = date.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        final DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return startLocalDate.format(format);
     }
 
 }
