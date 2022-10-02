@@ -1,6 +1,7 @@
 package am.threesmart.services;
 
 import am.threesmart.enums.TaskStatus;
+import am.threesmart.exceptions.NoSuchTaskException;
 import am.threesmart.exceptions.UserNotFoundException;
 import am.threesmart.mappers.TaskMapper;
 import am.threesmart.models.dto.AuthenticatedUser;
@@ -8,11 +9,9 @@ import am.threesmart.models.dto.Task;
 import am.threesmart.models.entity.TaskEntity;
 import am.threesmart.repositories.TaskRepository;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -31,7 +30,7 @@ public class TaskService {
     }
 
     public List<Task> getAllCompletedTasks(final int page, final int size) {
-        return getByStatusAndAssigneeId(TaskStatus.COMPLETED, page, size);
+        return getByStatusAndAssigneeId(TaskStatus.COMPLETE, page, size);
     }
 
     private List<Task> getByStatusAndAssigneeId(final TaskStatus status, final int page, int size) {
@@ -101,4 +100,17 @@ public class TaskService {
         return startLocalDate.format(format);
     }
 
+    public Task complete(final Long id) {
+        final Optional<TaskEntity> byId = taskRepository.findById(id);
+        if (byId.isEmpty()) {
+            throw new NoSuchTaskException();
+        }
+
+        final TaskEntity taskEntity = byId.get();
+        taskEntity.setStatus(TaskStatus.COMPLETE);
+        taskEntity.setEndDate(System.currentTimeMillis());
+        taskRepository.save(taskEntity);
+
+        return TaskMapper.instance.entityToDto(taskEntity);
+    }
 }
