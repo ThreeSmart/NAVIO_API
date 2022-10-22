@@ -1,5 +1,6 @@
 package am.threesmart.controllers;
 
+import am.threesmart.enums.TaskStatus;
 import am.threesmart.models.dto.Task;
 import am.threesmart.services.TaskService;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/tasks")
@@ -39,6 +41,12 @@ public class TaskController {
     public ResponseEntity<?> completeTask(@RequestParam final Long id) {
         final Task task = taskService.complete(id);
         return ResponseEntity.ok("task complete: " + task.getName());
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<?> getAllCount(@RequestParam final TaskStatus status) {
+        long count = taskService.getAllCount(status);
+        return ResponseEntity.ok(Map.of("count", count));
     }
 
 }

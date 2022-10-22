@@ -47,7 +47,6 @@ public class TaskService {
                         PageRequest.of(page, size)
                 );
 
-
         byStatus.sort((o1, o2) -> {
             if (o1.getPriority().toString().equals(o2.getPriority().toString())) {
                 return 0;
@@ -116,4 +115,9 @@ public class TaskService {
 
         return TaskMapper.instance.entityToDto(taskEntity);
     }
+
+    public long getAllCount(final TaskStatus status) {
+        return taskRepository.countAllByStatus(status);
+    }
+
 }
