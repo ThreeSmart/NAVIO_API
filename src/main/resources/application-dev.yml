@@ -4,14 +4,14 @@ server:
     include-message: always
 spring:
   datasource:
-    username: threesmart
-    password: threesmart
-    #    url: jdbc:postgresql://172.17.0.1:5433/threesmart
-    url: jdbc:postgresql://threesmart-db:5432/threesmart
+    username: navio
+    password: navio-password
+    url: jdbc:postgresql://localhost:5433/navio
     driver-class-name: org.postgresql.Driver
-    jpa:
+  jpa:
+    properties:
       hibernate:
-        ddl-auto: validate
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   mail:
     host: mail.threesmart.am
     port: 465
